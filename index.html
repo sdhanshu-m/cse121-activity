@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elite Academy</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    :root{
+      --primary:#2563eb;
+      --secondary:#0f172a;
+      --light:#f8fafc;
+      --white:#ffffff;
+      --accent:#38bdf8;
+      --glass:rgba(255,255,255,0.1);
+      --shadow:0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    body{
+      font-family:'Poppins',sans-serif;
+      background:#f1f5f9;
+      color:#1e293b;
+      overflow-x:hidden;
+    }
+
+    /* NAVBAR */
+
+    header{
+      width:100%;
+      position:fixed;
+      top:0;
+      left:0;
+      z-index:1000;
+      transition:0.4s;
+      padding:18px 60px;
+    }
+
+    header.scrolled{
+      background:rgba(15,23,42,0.95);
+      backdrop-filter:blur(10px);
+      box-shadow:var(--shadow);
+    }
+
+    .navbar{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+    }
+
+    .logo{
+      color:white;
+      font-size:28px;
+      font-weight:700;
+      letter-spacing:1px;
+    }
+
+    nav ul{
+      display:flex;
+      gap:28px;
+      list-style:none;
+    }
+
+    nav a{
+      color:white;
+      text-decoration:none;
+      font-weight:500;
+      transition:0.3s;
+      position:relative;
+    }
+
+    nav a::after{
+      content:'';
+      width:0;
+      height:2px;
+      background:var(--accent);
+      position:absolute;
+      left:0;
+      bottom:-5px;
+      transition:0.3s;
+    }
+
+    nav a:hover::after{
+      width:100%;
+    }
+
+    .menu-btn{
+      display:none;
+      font-size:30px;
+      color:white;
+      cursor:pointer;
+    }
+
+    /* HERO */
+
+    .hero{
+      height:100vh;
+      background:
+      linear-gradient(rgba(15,23,42,0.7),rgba(15,23,42,0.7)),
+      url("https://images.unsplash.com/photo-1523050854058-8df90110c9f1?q=80&w=1600&auto=format&fit=crop");
+      background-size:cover;
+      background-position:center;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      text-align:center;
+      padding:20px;
+      color:white;
+    }
+
+    .hero-content{
+      max-width:850px;
+      animation:fadeUp 1s ease;
+    }
+
+    .hero h1{
+      font-size:70px;
+      margin-bottom:20px;
+      line-height:1.1;
+    }
+
+    .hero p{
+      font-size:22px;
+      margin-bottom:35px;
+      color:#dbeafe;
+    }
+
+    .hero-buttons{
+      display:flex;
+      justify-content:center;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      padding:14px 30px;
+      border:none;
+      border-radius:50px;
+      font-size:16px;
+      font-weight:600;
+      cursor:pointer;
+      transition:0.3s;
+    }
+
+    .btn-primary{
+      background:var(--primary);
+      color:white;
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-4px);
+      background:#1d4ed8;
+    }
+
+    .btn-secondary{
+      background:white;
+      color:var(--secondary);
+    }
+
+    .btn-secondary:hover{
+      transform:translateY(-4px);
+    }
+
+    /* SECTIONS */
+
+    section{
+      padding:100px 8%;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:70px;
+    }
+
+    .section-title h2{
+      font-size:42px;
+      color:var(--secondary);
+      margin-bottom:10px;
+    }
+
+    .section-title p{
+      color:#64748b;
+      font-size:18px;
+    }
+
+    /* ABOUT */
+
+    .about-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:50px;
+      align-items:center;
+    }
+
+    .about-img img{
+      width:100%;
+      border-radius:25px;
+      box-shadow:var(--shadow);
+    }
+
+    .about-content h3{
+      font-size:36px;
+      margin-bottom:20px;
+    }
+
+    .about-content p{
+      line-height:1.9;
+      color:#475569;
+      margin-bottom:20px;
+    }
+
+    /* COURSES */
+
+    .courses-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+      gap:30px;
+    }
+
+    .course-card{
+      background:white;
+      border-radius:20px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      transition:0.4s;
+      position:relative;
+    }
+
+    .course-card:hover{
+      transform:translateY(-12px);
+    }
+
+    .course-card img{
+      width:100%;
+      height:220px;
+      object-fit:cover;
+    }
+
+    .course-content{
+      padding:25px;
+    }
+
+    .course-content h3{
+      margin-bottom:12px;
+      font-size:24px;
+    }
+
+    .course-content p{
+      color:#64748b;
+      margin-bottom:20px;
+      line-height:1.7;
+    }
+
+    .price{
+      font-size:20px;
+      font-weight:700;
+      color:var(--primary);
+    }
+
+    /* STATS */
+
+    .stats{
+      background:linear-gradient(135deg,#2563eb,#0ea5e9);
+      color:white;
+      border-radius:30px;
+      padding:70px 30px;
+      margin:50px 8%;
+    }
+
+    .stats-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      text-align:center;
+      gap:30px;
+    }
+
+    .stat h2{
+      font-size:50px;
+      margin-bottom:10px;
+    }
+
+    /* TESTIMONIALS */
+
+    .testimonial-container{
+      position:relative;
+      max-width:900px;
+      margin:auto;
+      overflow:hidden;
+    }
+
+    .testimonial-slider{
+      display:flex;
+      transition:0.5s;
+    }
+
+    .testimonial{
+      min-width:100%;
+      background:white;
+      padding:40px;
+      border-radius:25px;
+      box-shadow:var(--shadow);
+      text-align:center;
+    }
+
+    .testimonial img{
+      width:90px;
+      height:90px;
+      border-radius:50%;
+      margin-bottom:20px;
+    }
+
+    .testimonial p{
+      line-height:1.9;
+      color:#475569;
+      margin-bottom:20px;
+    }
+
+    /* CONTACT */
+
+    .contact-container{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+      gap:50px;
+    }
+
+    .contact-info{
+      background:var(--secondary);
+      color:white;
+      padding:40px;
+      border-radius:25px;
+    }
+
+    .contact-info h3{
+      margin-bottom:20px;
+      font-size:30px;
+    }
+
+    .contact-info p{
+      margin-bottom:15px;
+      line-height:1.8;
+      color:#cbd5e1;
+    }
+
+    form{
+      background:white;
+      padding:40px;
+      border-radius:25px;
+      box-shadow:var(--shadow);
+    }
+
+    .input-group{
+      margin-bottom:20px;
+    }
+
+    input, textarea{
+      width:100%;
+      padding:16px;
+      border:1px solid #cbd5e1;
+      border-radius:12px;
+      font-size:16px;
+      outline:none;
+      transition:0.3s;
+    }
+
+    input:focus, textarea:focus{
+      border-color:var(--primary);
+    }
+
+    textarea{
+      resize:none;
+      height:140px;
+    }
+
+    .success{
+      background:#16a34a;
+      color:white;
+      padding:15px;
+      border-radius:10px;
+      margin-top:15px;
+      display:none;
+    }
+
+    /* FOOTER */
+
+    footer{
+      background:var(--secondary);
+      color:white;
+      text-align:center;
+      padding:30px;
+      margin-top:80px;
+    }
+
+    /* SCROLL TOP */
+
+    .scroll-top{
+      position:fixed;
+      right:25px;
+      bottom:25px;
+      width:50px;
+      height:50px;
+      background:var(--primary);
+      color:white;
+      border:none;
+      border-radius:50%;
+      cursor:pointer;
+      display:none;
+      font-size:22px;
+      box-shadow:var(--shadow);
+    }
+
+    /* ANIMATIONS */
+
+    @keyframes fadeUp{
+      from{
+        opacity:0;
+        transform:translateY(50px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    /* RESPONSIVE */
+
+    @media(max-width:900px){
+
+      header{
+        padding:18px 25px;
+      }
+
+      nav{
+        position:absolute;
+        top:80px;
+        left:0;
+        width:100%;
+        background:#0f172a;
+        display:none;
+      }
+
+      nav.active{
+        display:block;
+      }
+
+      nav ul{
+        flex-direction:column;
+        padding:20px;
+      }
+
+      .menu-btn{
+        display:block;
+      }
+
+      .hero h1{
+        font-size:48px;
+      }
+
+      .hero p{
+        font-size:18px;
+      }
+
+      .section-title h2{
+        font-size:34px;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+
+  <header id="header">
+    <div class="navbar">
+      <div class="logo">Elite Academy</div>
+
+      <nav id="nav">
+        <ul>
+          <li><a href="#home">Home</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#courses">Courses</a></li>
+          <li><a href="#testimonials">Testimonials</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+
+      <div class="menu-btn" id="menu-btn">☰</div>
+    </div>
+  </header>
+
+  <!-- HERO -->
+
+  <section class="hero" id="home">
+    <div class="hero-content">
+      <h1>Empowering Future Leaders</h1>
+      <p>
+        Experience world-class education with innovation, creativity,
+        and technology-driven learning.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="btn btn-primary" onclick="showWelcome()">
+          Explore Now
+        </button>
+
+        <button class="btn btn-secondary" onclick="scrollCourses()">
+          View Courses
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+
+  <section id="about">
+    <div class="section-title">
+      <h2>About Us</h2>
+      <p>Modern education with elite learning experience</p>
+    </div>
+
+    <div class="about-grid">
+      <div class="about-img">
+        <img src="https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=1200&auto=format&fit=crop">
+      </div>
+
+      <div class="about-content">
+        <h3>Building Excellence Since 2010</h3>
+
+        <p>
+          Elite Academy provides a premium educational environment focused
+          on innovation, leadership, and future-ready skills.
+        </p>
+
+        <p>
+          We combine technology, expert faculty, and practical learning
+          to create extraordinary student outcomes.
+        </p>
+
+        <button class="btn btn-primary" onclick="alertMessage()">
+          Learn More
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- COURSES -->
+
+  <section id="courses">
+    <div class="section-title">
+      <h2>Popular Courses</h2>
+      <p>Choose your future career path</p>
+    </div>
+
+    <div class="courses-grid">
+
+      <div class="course-card">
+        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="course-content">
+          <h3>Web Development</h3>
+          <p>
+            Learn HTML, CSS, JavaScript and modern frameworks.
+          </p>
+          <div class="price">₹19,999</div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <img src="https://images.unsplash.com/photo-1526379095098-d400fd0bf935?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="course-content">
+          <h3>Artificial Intelligence</h3>
+          <p>
+            Master machine learning and AI tools for the future.
+          </p>
+          <div class="price">₹29,999</div>
+        </div>
+      </div>
+
+      <div class="course-card">
+        <img src="https://images.unsplash.com/photo-1516321165247-4aa89a48be28?q=80&w=1200&auto=format&fit=crop">
+
+        <div class="course-content">
+          <h3>UI/UX Design</h3>
+          <p>
+            Create beautiful user experiences with modern tools.
+          </p>
+          <div class="price">₹14,999</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- STATS -->
+
+  <div class="stats">
+    <div class="stats-grid">
+
+      <div class="stat">
+        <h2 id="students">0</h2>
+        <p>Students</p>
+      </div>
+
+      <div class="stat">
+        <h2 id="teachers">0</h2>
+        <p>Teachers</p>
+      </div>
+
+      <div class="stat">
+        <h2 id="coursesCount">0</h2>
+        <p>Courses</p>
+      </div>
+
+      <div class="stat">
+        <h2 id="placements">0</h2>
+        <p>Placements</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+
+  <section id="testimonials">
+
+    <div class="section-title">
+      <h2>Student Reviews</h2>
+      <p>What our students say</p>
+    </div>
+
+    <div class="testimonial-container">
+
+      <div class="testimonial-slider" id="slider">
+
+        <div class="testimonial">
+          <img src="https://randomuser.me/api/portraits/women/44.jpg">
+          <p>
+            Elite Academy completely transformed my career journey.
+          </p>
+          <h3>Priya Sharma</h3>
+        </div>
+
+        <div class="testimonial">
+          <img src="https://randomuser.me/api/portraits/men/32.jpg">
+          <p>
+            Best learning environment with highly skilled mentors.
+          </p>
+          <h3>Rahul Verma</h3>
+        </div>
+
+        <div class="testimonial">
+          <img src="https://randomuser.me/api/portraits/women/68.jpg">
+          <p>
+            Amazing UI and coding programs with practical projects.
+          </p>
+          <h3>Ananya Singh</h3>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+
+  <section id="contact">
+
+    <div class="section-title">
+      <h2>Contact Us</h2>
+      <p>We'd love to hear from you</p>
+    </div>
+
+    <div class="contact-container">
+
+      <div class="contact-info">
+        <h3>Get In Touch</h3>
+
+        <p>📍 Punjab, India</p>
+        <p>📞 +91 9876543210</p>
+        <p>📧 eliteacademy@gmail.com</p>
+      </div>
+
+      <form id="contactForm">
+
+        <div class="input-group">
+          <input type="text" id="name" placeholder="Your Name">
+        </div>
+
+        <div class="input-group">
+          <input type="email" id="email" placeholder="Your Email">
+        </div>
+
+        <div class="input-group">
+          <textarea id="message" placeholder="Your Message"></textarea>
+        </div>
+
+        <button class="btn btn-primary" type="submit">
+          Send Message
+        </button>
+
+        <div class="success" id="successMsg">
+          Message Sent Successfully!
+        </div>
+
+      </form>
+
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+
+  <footer>
+    <p>© 2026 Elite Academy | Designed with HTML CSS JS</p>
+  </footer>
+
+  <!-- SCROLL TOP -->
+
+  <button class="scroll-top" id="scrollTop">
+    ↑
+  </button>
+
+  <!-- JAVASCRIPT -->
+
+  <script>
+
+    // MOBILE MENU
+
+    const menuBtn = document.getElementById("menu-btn");
+    const nav = document.getElementById("nav");
+
+    menuBtn.addEventListener("click",()=>{
+      nav.classList.toggle("active");
+    });
+
+    // NAVBAR SCROLL EFFECT
+
+    const header = document.getElementById("header");
+
+    window.addEventListener("scroll",()=>{
+      header.classList.toggle("scrolled",window.scrollY > 50);
+    });
+
+    // HERO BUTTON
+
+    function showWelcome(){
+      alert("✨ Welcome to Elite Academy!");
+    }
+
+    function scrollCourses(){
+      document.getElementById("courses")
+      .scrollIntoView({behavior:"smooth"});
+    }
+
+    function alertMessage(){
+      alert("🚀 Admissions Open for 2026!");
+    }
+
+    // CONTACT FORM VALIDATION
+
+    const form = document.getElementById("contactForm");
+    const successMsg = document.getElementById("successMsg");
+
+    form.addEventListener("submit",(e)=>{
+
+      e.preventDefault();
+
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+
+      if(name === "" || email === "" || message === ""){
+        alert("Please fill all fields");
+        return;
+      }
+
+      if(!email.includes("@")){
+        alert("Enter valid email");
+        return;
+      }
+
+      successMsg.style.display = "block";
+
+      form.reset();
+
+      setTimeout(()=>{
+        successMsg.style.display = "none";
+      },3000);
+
+    });
+
+    // COUNTER ANIMATION
+
+    function counter(id,target){
+
+      let count = 0;
+
+      const speed = target / 100;
+
+      const update = ()=>{
+
+        count += speed;
+
+        if(count < target){
+          document.getElementById(id).innerText =
+          Math.floor(count) + "+";
+          requestAnimationFrame(update);
+        }
+
+        else{
+          document.getElementById(id).innerText =
+          target + "+";
+        }
+      };
+
+      update();
+    }
+
+    counter("students",5000);
+    counter("teachers",120);
+    counter("coursesCount",35);
+    counter("placements",1500);
+
+    // TESTIMONIAL SLIDER
+
+    let slide = 0;
+
+    const slider = document.getElementById("slider");
+
+    setInterval(()=>{
+
+      slide++;
+
+      if(slide > 2){
+        slide = 0;
+      }
+
+      slider.style.transform =
+      `translateX(-${slide * 100}%)`;
+
+    },4000);
+
+    // SCROLL TOP BUTTON
+
+    const scrollBtn = document.getElementById("scrollTop");
+
+    window.addEventListener("scroll",()=>{
+
+      if(window.scrollY > 300){
+        scrollBtn.style.display = "block";
+      }
+
+      else{
+        scrollBtn.style.display = "none";
+      }
+
+    });
+
+    scrollBtn.addEventListener("click",()=>{
+      window.scrollTo({
+        top:0,
+        behavior:"smooth"
+      });
+    });
+
+  </script>
+
+</body>
+</html>
